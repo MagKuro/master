@@ -1,11 +1,8 @@
 package com.kurowska.master.controller;
 
-import com.kurowska.master.model.GeneratedPassword;
 import com.kurowska.master.model.RockYou;
-import com.kurowska.master.repository.GeneratedPasswordRepository;
 import com.kurowska.master.repository.RockYouRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,22 +11,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Date;
-import java.util.Optional;
 
 @Controller
 public class WebAppController {
     private RockYouRepository rockYouRepository;
-    private GeneratedPasswordRepository generatedPasswordRepository;
 
     @Autowired
-    public WebAppController(RockYouRepository rockYouRepository, GeneratedPasswordRepository generatedPasswordRepository){
+    public WebAppController(RockYouRepository rockYouRepository){
         this.rockYouRepository = rockYouRepository;
-        this.generatedPasswordRepository = generatedPasswordRepository;
     }
 
     @GetMapping
     public String index(Model model){
-        model.addAttribute("rockyou", new RockYou());
+        model.addAttribute("datetime", new Date());
         return "index";
     }
 
@@ -61,11 +55,12 @@ public class WebAppController {
             rockYou = rockYouRepository.getBySha2(hash);
         }
         if(rockYou==null){
-            rockYou = new RockYou();
+            model.addAttribute("result", "Nie udało się odzyskać hasła.");
         }
-
+        else{
+            model.addAttribute("result", rockYou.getPassword());
+        }
         model.addAttribute("datetime", new Date());
-        model.addAttribute("password", rockYou.getPassword());
         model.addAttribute("hash", hash);
         model.addAttribute("function", function);
 
