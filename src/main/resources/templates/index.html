@@ -30,8 +30,6 @@
     </ul>
     <!-- Main component for a primary marketing message or call to action -->
     <div class="jumbotron">
-        <!--Usage of models we wrote in WepAppController th:text="'Welcome to basic Bootstrap with Spring Boot created by ' + ${username} -->
-        <!--<p th:text="${#dates.format(datetime, 'dd MMM yyyy HH:mm')}"></p>-->
         <h1 class="display-4">Odzyskaj hasło</h1>
         <p class="lead"> Witaj w aplikacji do odzyskiwania hasła. Projekt został stworzony w ramach pracy magisterskiej. Umożliwia odzyskanie zahaszowanego przez funkcje skrótu: md5, sha1, sha264 hasła. </p>
         <p> w celu odzyskania hasła wybierz funkcję skrótu użytą na haśle (możliwe opcje: md5, sha1, sha264), następnie wklej w puste pole skrót hasła, które chcesz złamać i naciśnij przycisk "Odzyskaj hasło"</p>
@@ -55,7 +53,7 @@
             <p>
                 <div class="form-row">
                     <div class="form-group col-md-9">
-                        <input class="form-control form-control-lg" type="text" name="hash" placeholder="5f4dcc3b5aa765d61d8327deb882cf99" required minlength="5">
+                        <input class="form-control form-control-lg" type="text" name="hash" placeholder="5f4dcc3b5aa765d61d8327deb882cf99" required>
                     </div>
                     <div class="form-group col-md-3">
                         <button type="submit" class="btn btn-primary btn-lg" >Odzyskaj hasło</button>

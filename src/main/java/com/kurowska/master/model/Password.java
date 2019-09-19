@@ -4,13 +4,8 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@NamedQueries({
-        @NamedQuery(name= "RockYou.findByMd5", query="SELECT r FROM RockYou r WHERE r.md5=:md5"),
-        @NamedQuery(name="RockYou.findBySha1", query="SELECT r FROM RockYou r WHERE r.sha1=:sha1"),
-        @NamedQuery(name="RockYou.findBySha2", query="SELECT r FROM RockYou r WHERE r.sha2=:sha2")
-})
-@Table(name = "rockyou")
-public class RockYou implements Serializable{
+@Table(name = "all_passwords")
+public class Password implements Serializable{
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -21,7 +16,7 @@ public class RockYou implements Serializable{
     private String sha1;
     private String sha2;
 
-    public RockYou() {
+    public Password() {
     }
 
     public Long getId() {
@@ -66,6 +61,6 @@ public class RockYou implements Serializable{
 
     @Override
     public String toString(){
-        return "RockYou id=" + id + " ,password=" + password ;
+        return "Password id=" + id + " ,password=" + password ;
     }
 }

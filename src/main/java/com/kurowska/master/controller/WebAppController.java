@@ -1,7 +1,7 @@
 package com.kurowska.master.controller;
 
-import com.kurowska.master.model.RockYou;
-import com.kurowska.master.repository.RockYouRepository;
+import com.kurowska.master.model.Password;
+import com.kurowska.master.repository.PasswordRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,11 +14,11 @@ import java.util.Date;
 
 @Controller
 public class WebAppController {
-    private RockYouRepository rockYouRepository;
+    private PasswordRepository passwordRepository;
 
     @Autowired
-    public WebAppController(RockYouRepository rockYouRepository){
-        this.rockYouRepository = rockYouRepository;
+    public WebAppController(PasswordRepository passwordRepository){
+        this.passwordRepository = passwordRepository;
     }
 
     @GetMapping
@@ -41,24 +41,22 @@ public class WebAppController {
     public String crack(@RequestParam()String function, @RequestParam()String hash,
                         Model model){
 
-        System.out.println(function);
-        System.out.println(hash);
-        RockYou rockYou = null;
+        Password password = null;
 
         if(function.equals("md5")){
-            rockYou = rockYouRepository.getByMd5(hash);
+            password = passwordRepository.getByMd5(hash).stream().findFirst().orElse(null);
         }
         else if(function.equals("sha1")){
-            rockYou = rockYouRepository.getBySha1(hash);
+            password = passwordRepository.getBySha1(hash).stream().findFirst().orElse(null);
         }
         else if(function.equals("sha2")){
-            rockYou = rockYouRepository.getBySha2(hash);
+            password = passwordRepository.getBySha2(hash).stream().findFirst().orElse(null);
         }
-        if(rockYou==null){
+        if(password==null){
             model.addAttribute("result", "Nie udało się odzyskać hasła.");
         }
         else{
-            model.addAttribute("result", rockYou.getPassword());
+            model.addAttribute("result", password.getPassword());
         }
         model.addAttribute("datetime", new Date());
         model.addAttribute("hash", hash);
