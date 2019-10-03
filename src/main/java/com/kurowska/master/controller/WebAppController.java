@@ -1,5 +1,4 @@
 package com.kurowska.master.controller;
-
 import com.kurowska.master.model.Password;
 import com.kurowska.master.repository.PasswordRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,8 +8,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
-import java.util.Date;
 
 @Controller
 public class WebAppController {
@@ -22,8 +19,7 @@ public class WebAppController {
     }
 
     @GetMapping
-    public String index(Model model){
-        model.addAttribute("datetime", new Date());
+    public String index(){
         return "index";
     }
 
@@ -58,7 +54,6 @@ public class WebAppController {
         else{
             model.addAttribute("result", password.getPassword());
         }
-        model.addAttribute("datetime", new Date());
         model.addAttribute("hash", hash);
         model.addAttribute("function", function);
 
